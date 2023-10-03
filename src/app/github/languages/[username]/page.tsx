@@ -45,10 +45,11 @@ export default async function Page(props: PageParams) {
 	return (
 		<main>
 			<svg
-				style={{
-					width: box.width,
-					height: box.height,
-				}}
+				width={box.width}
+				height={box.height}
+				viewBox="0 0 880 220"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg"
 			>
 				{userLanguagesWithBadges.map((language, order) => {
 					return <Image key={language.name} icon={language.source} order={order} />;
