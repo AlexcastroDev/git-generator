@@ -1,11 +1,11 @@
-export * from "./github";
+export * from './github';
 
 export interface LanguageDictionary {
-  [key: string]: number;
+	[key: string]: number;
 }
 
 export interface PageParams {
-  params: {
-    username: string;
-  };
+	params: {
+		username: string;
+	};
 }

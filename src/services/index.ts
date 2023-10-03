@@ -1,18 +1,18 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: "https://api.github.com/graphql",
+	baseURL: 'https://api.github.com/graphql',
 });
 
 export async function queryData<T = unknown>(query: string): Promise<T> {
-  const response = await fetch("https://api.github.com/graphql", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${process.env.GITHUB_TOKEN}}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ query }),
-  });
+	const response = await fetch('https://api.github.com/graphql', {
+		method: 'POST',
+		headers: {
+			Authorization: `Bearer ${process.env.GITHUB_TOKEN}}`,
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ query }),
+	});
 
-  return await response.json();
+	return await response.json();
 }

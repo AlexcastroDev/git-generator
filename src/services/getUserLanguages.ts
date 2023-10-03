@@ -1,5 +1,5 @@
-import { GithubRepositoryResponse, LanguageDictionary } from "@/types";
-import { api, queryData } from "@/services";
+import { GithubRepositoryResponse, LanguageDictionary } from '@/types';
+import { api, queryData } from '@/services';
 
 const generateQuery = (username: string) => `
   query {
@@ -22,34 +22,34 @@ const generateQuery = (username: string) => `
 `;
 
 function getLanguagesForRepo(response: GithubRepositoryResponse) {
-  const repositories = response.data.user.repositories.nodes;
-  const languages: LanguageDictionary = {};
+	const repositories = response.data.user.repositories.nodes;
+	const languages: LanguageDictionary = {};
 
-  for (const repo of repositories) {
-    for (const edge of repo.languages.edges) {
-      const langName = edge.node.name;
-      const langSize = edge.size;
+	for (const repo of repositories) {
+		for (const edge of repo.languages.edges) {
+			const langName = edge.node.name;
+			const langSize = edge.size;
 
-      languages[langName] = (languages[langName] || 0) + langSize;
-    }
-  }
+			languages[langName] = (languages[langName] || 0) + langSize;
+		}
+	}
 
-  return languages;
+	return languages;
 }
 
 export async function getUserLanguages(user: string) {
-  if (!user) {
-    return null;
-  }
+	if (!user) {
+		return null;
+	}
 
-  const response = await queryData<GithubRepositoryResponse>(
-    generateQuery(user),
-  );
+	const response = await queryData<GithubRepositoryResponse>(
+		generateQuery(user)
+	);
 
-  if (!response?.data?.user) {
-    return null;
-  }
+	if (!response?.data?.user) {
+		return null;
+	}
 
-  const body = getLanguagesForRepo(response);
-  return body;
+	const body = getLanguagesForRepo(response);
+	return body;
 }
