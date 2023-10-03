@@ -20,7 +20,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<string>,
 ) {
-  res.setHeader("Content-Type", "image/svg+xml");
+  res.setHeader("Content-Type", "image/svg+xml; charset=utf-8");
 
   const content = await getContent(req.query.username as string);
   res.status(200).send(content);
