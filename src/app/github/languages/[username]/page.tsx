@@ -47,8 +47,6 @@ export default async function Page(props: PageParams) {
 			<svg
 				width={box.width}
 				height={box.height}
-				viewBox="0 0 880 220"
-				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
 			>
 				{userLanguagesWithBadges.map((language, order) => {
