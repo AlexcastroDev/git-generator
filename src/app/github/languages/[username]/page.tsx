@@ -34,14 +34,22 @@ export default async function Page(props: PageParams) {
 	});
 	
 	return (
-		<main className='flex flex-row gap-4'>
-			{userLanguagesWithBadges.map((language) => {
-				return (
-					<div key={language.name}>
-						<Image icon={language.source} />
-					</div>
-				);	
-			})}
+		<main>
+			<svg style={{
+				display: 'flex',
+				flexWrap: 'wrap',
+				flexDirection: 'row',
+				justifyContent: 'center',
+				alignItems: 'center',
+			}}>
+				{userLanguagesWithBadges.map((language) => {
+					return (
+						<div key={language.name}>
+							<Image icon={language.source} />
+						</div>
+					);	
+				})}
+			</svg>
 		</main>
 	);
 }
