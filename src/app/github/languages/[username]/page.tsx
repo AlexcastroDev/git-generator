@@ -2,7 +2,7 @@ import { getUserLanguages } from '@/services/getUserLanguages';
 import { PageParams } from '@/types';
 import Image from '@/components/Image';
 import { redirect } from 'next/navigation';
-import languages from '@/languages.json'
+import languages from '@/languages.json';
 
 async function getData(username: string) {
 	const res = await getUserLanguages(username);
@@ -17,37 +17,41 @@ async function getData(username: string) {
 export default async function Page(props: PageParams) {
 	const data = await getData(props.params.username);
 	const userLanguages = Object.keys(data);
-	
-	
-	const userLanguagesWithBadges = userLanguages.filter((language) => {
-		return languages.find((lang) => lang.name.toLocaleLowerCase() === language.toLocaleLowerCase());
-	}).map((language, key) => {
-		const langName = language.toLocaleLowerCase();
-		const languageData = languages.find((l) => l.name === langName);
-		return {
-			name: language,
-			stats: data[language],
-			source: languageData?.source ?? '',
-		};
-	}).sort((a, b) => {
-		return b.stats - a.stats;
-	});
-	
+
+	const userLanguagesWithBadges = userLanguages
+		.filter((language) => {
+			return languages.find(
+				(lang) => lang.name.toLocaleLowerCase() === language.toLocaleLowerCase()
+			);
+		})
+		.map((language, key) => {
+			const langName = language.toLocaleLowerCase();
+			const languageData = languages.find((l) => l.name === langName);
+			return {
+				name: language,
+				stats: data[language],
+				source: languageData?.source ?? '',
+			};
+		})
+		.sort((a, b) => {
+			return b.stats - a.stats;
+		});
+
+	const spacing = 10;
+	const box = {
+		width: 30 * userLanguagesWithBadges.length + spacing * userLanguagesWithBadges.length,
+		height: 30,
+	} 
 	return (
 		<main>
-			<svg style={{
-				display: 'flex',
-				flexWrap: 'wrap',
-				flexDirection: 'row',
-				justifyContent: 'center',
-				alignItems: 'center',
-			}}>
-				{userLanguagesWithBadges.map((language) => {
-					return (
-						<div key={language.name}>
-							<Image icon={language.source} />
-						</div>
-					);	
+			<svg
+				style={{
+					width: box.width,
+					height: box.height,
+				}}
+			>
+				{userLanguagesWithBadges.map((language, order) => {
+					return <Image key={language.name} icon={language.source} order={order} />;
 				})}
 			</svg>
 		</main>
